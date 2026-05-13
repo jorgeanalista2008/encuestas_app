@@ -6,6 +6,8 @@ import 'crear_encuesta_screen.dart';
 import 'responder_encuesta_screen.dart';
 import 'seleccionar_usuario_screen.dart';
 import 'exportar_screen.dart';
+import 'control_stand_screen.dart';
+import 'eventos_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -63,6 +65,28 @@ int _getTotalRespuestas() {
       appBar: LogoAppBar(
       title: 'Mis Encuestas',
       actions: [
+         IconButton(
+            icon: Icon(Icons.event_note),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EventosScreen()),
+              );
+            },
+            tooltip: 'Control de Eventos',
+          ),
+         // Botón de Stand
+        IconButton(
+          icon: Icon(Icons.storefront_outlined),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ControlStandScreen()),
+            );
+          },
+          tooltip: 'Control de Stand',
+        ),
+
         IconButton(
           icon: Icon(Icons.file_download_outlined),
           onPressed: () {

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+import 'package:intl/date_symbol_data_local.dart'; // Agrega este import
+void main() async {
   
+  WidgetsFlutterBinding.ensureInitialized();  
+  // Inicializar formatos de fecha en español
+  await initializeDateFormatting('es', null);
   
   runApp(MyApp());
 }

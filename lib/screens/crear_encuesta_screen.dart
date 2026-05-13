@@ -288,6 +288,7 @@ class _CrearEncuestaScreenState extends State<CrearEncuestaScreen> {
             SizedBox(height: 12),
             
             // Selector de tipo de respuesta
+           // En el DropdownButtonFormField, cambia los items:
             DropdownButtonFormField<String>(
               value: preguntaData.tipoSeleccionado,
               decoration: InputDecoration(
@@ -305,6 +306,36 @@ class _CrearEncuestaScreenState extends State<CrearEncuestaScreen> {
                       Icon(Icons.text_fields, size: 20),
                       SizedBox(width: 8),
                       Text('Texto libre'),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'numero',  // NUEVO
+                  child: Row(
+                    children: [
+                      Icon(Icons.numbers, size: 20),
+                      SizedBox(width: 8),
+                      Text('Numérico'),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'telefono',  // NUEVO
+                  child: Row(
+                    children: [
+                      Icon(Icons.phone, size: 20),
+                      SizedBox(width: 8),
+                      Text('Teléfono'),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'email',  // NUEVO
+                  child: Row(
+                    children: [
+                      Icon(Icons.email, size: 20),
+                      SizedBox(width: 8),
+                      Text('Correo electrónico'),
                     ],
                   ),
                 ),
@@ -332,14 +363,12 @@ class _CrearEncuestaScreenState extends State<CrearEncuestaScreen> {
               onChanged: (value) {
                 setState(() {
                   preguntaData.tipoSeleccionado = value!;
-                  // Limpiar opciones si cambia de tipo
                   if (value != 'opcion_multiple') {
                     preguntaData.opcionesController.clear();
                   }
                 });
               },
             ),
-            
             // Campo de opciones (solo visible para opción múltiple)
             if (preguntaData.tipoSeleccionado == 'opcion_multiple') ...[
               SizedBox(height: 12),
@@ -388,31 +417,43 @@ class _CrearEncuestaScreenState extends State<CrearEncuestaScreen> {
     );
   }
 
-  IconData _getIconForType(String type) {
-    switch (type) {
-      case 'texto':
-        return Icons.text_fields;
-      case 'si_no':
-        return Icons.thumbs_up_down;
-      case 'opcion_multiple':
-        return Icons.list_alt;
-      default:
-        return Icons.help;
-    }
-  }
+      IconData _getIconForType(String type) {
+        switch (type) {
+          case 'texto':
+            return Icons.text_fields;
+          case 'numero':
+            return Icons.numbers;
+          case 'telefono':
+            return Icons.phone;
+          case 'email':
+            return Icons.email;
+          case 'si_no':
+            return Icons.thumbs_up_down;
+          case 'opcion_multiple':
+            return Icons.list_alt;
+          default:
+            return Icons.help;
+        }
+      }
 
-  String _getTypeDescription(String type) {
-    switch (type) {
-      case 'texto':
-        return 'El usuario podrá escribir una respuesta libre';
-      case 'si_no':
-        return 'El usuario elegirá entre Sí o No';
-      case 'opcion_multiple':
-        return 'El usuario seleccionará una de las opciones proporcionadas';
-      default:
-        return '';
-    }
-  }
+      String _getTypeDescription(String type) {
+        switch (type) {
+          case 'texto':
+            return 'El usuario podrá escribir una respuesta libre';
+          case 'numero':
+            return 'Solo se permiten valores numéricos';
+          case 'telefono':
+            return 'Se validará formato de número telefónico';
+          case 'email':
+            return 'Se validará formato de correo electrónico';
+          case 'si_no':
+            return 'El usuario elegirá entre Sí o No';
+          case 'opcion_multiple':
+            return 'El usuario seleccionará una de las opciones';
+          default:
+            return '';
+        }
+      }
 }
 
 // Clase para manejar los datos de cada pregunta
